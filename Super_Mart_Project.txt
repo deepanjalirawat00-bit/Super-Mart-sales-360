@@ -640,6 +640,7 @@ GROUP BY s.storetype_id
 
 ORDER BY s.storetype_id;
 
+hi
 
 
 
