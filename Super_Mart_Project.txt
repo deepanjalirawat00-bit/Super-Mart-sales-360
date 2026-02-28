@@ -1,0 +1,647 @@
+-- order_ details ---
+
+select * from stable-equator-471308-u6.Super_Mart_Project.order_details;
+
+--PRODUCT Hierarchy ---
+
+select * from stable-equator-471308-u6.Super_Mart_Project.product_hierarchy;
+
+-- store_cities ---
+
+select * from stable-equator-471308-u6.Super_Mart_Project.store_cities;
+
+
+-- Sub Category	Category,	Yday Orders,	Yday GMV,	Yday Customers,	Yday Revenue,	Yday Live Products,	Yday Live Stores--
+
+p.Sub Category,
+P.category,
+count(o.order_id) as Yday Orders,
+sum(s.selling_price) as Yday GMV,
+count(distinct(o.customer_id) as Yday Customers,
+sum(o.selling_price) / 1.18 as Yday Revenue,
+count(distinct(p.product_id)) as Yday_Live Products,
+count(distinct(store_id)) as Yday Live Stores,
+from stable-equator-471308-u6.Super_Mart_Project.order_details as o,
+join stable-equator-471308-u6.Super_Mart_Project.product_hierarchy as p,
+on o.product_id = p.product_id,
+where o.order_date = '2025-10-31'
+group by 1,2;
+
+
+-- Question# 3- Brand,	Category,	Yday Orders,	Yday GMV,	Yday Customers,	Yday Revenue,	Yday Live Products,	Yday Live Stores --
+
+p.brand,
+P.category,
+count(o.order_id) as Yday Orders,
+sum(o.selling_price) as Yday GMV,
+count(distinct(o.customer_id) as Yday Customers,
+sum(o.selling_price) / 1.18 as Yday Revenue,
+count(distinct(p.product_id)) as Yday_Live Products,
+count(distinct(store_id)) as Yday Live Stores,
+from stable-equator-471308-u6.Super_Mart_Project.order_details as o,
+join stable-equator-471308-u6.Super_Mart_Project.product_hierarchy as p,
+on o.product_id = p.product_id,
+where o.order_date = '2025-10-31'
+group by 1,2;
+
+
+-- question 4- Product Id,	Brand,	Yday Orders,	Yday GMV,	Yday Customers,	Yday Revenue,	Yday Live Products,	Yday Live Stores --
+
+p.brand,
+P.Product Id,
+count(o.order_id) as Yday_Orders,
+sum(o.selling_price) as Yday_GMV,
+count(distinct(o.customer_id) as Yday_Customers,
+sum(o.selling_price) / 1.18 as Yday_Revenue,
+count(distinct(p.product_id)) as Yday_Live_Products,
+count(distinct(store_id)) as Yday_Live_Stores,
+from stable-equator-471308-u6.Super_Mart_Project.order_details as o,
+join stable-equator-471308-u6.Super_Mart_Project.product_hierarchy as p,
+on o.product_id = p.product_id,
+where o.order_date = '2025-10-31'
+group by 1,2;
+
+
+-- question-5 StoreType	,Yday Orders,	Yday GMV,	Yday Revenue,	Yday Customers,	Yday Live Products,	Yday Live Stores--
+
+SELECT
+S.STORETYPE_ID,
+COUNT(O.ORDER_ID) AS YDAY_ORDERS,
+SUM(O.SELLING_PRICE) AS YDAY_GVM,
+SUM(O.SELLING_PRICE)/1.18 AS YDAY_REVENUE,
+COUNT(DISTINCT O.CUSTOMER_ID) AS YDAY_CUTOMER,
+COUNT(DISTINCT O.PRODUCT_ID) AS YDAY_LIVE_PRODUCT,
+COUNT(DISTINCT O.STORE_ID) AS YDAY_LIVE_STORE,
+FROM stable-equator-471308-u6.Super_Mart_Project.order_details AS O  
+JOIN stable-equator-471308-u6.Super_Mart_Project.product_hierarchy AS P  
+ON O.PRODUCT_ID = P.PRODUCT_ID 
+JOIN stable-equator-471308-u6.Super_Mart_Project.store_cities AS S   
+ON O.STORE_ID = S.STORE_ID 
+WHERE ORDER_DATE = '2025-10-31'
+GROUP BY 1;
+
+-- Table 6: This table presents the status of Store Id Level Behaviour --
+
+-- Store Id,	StoreType,	Yday Orders,	Yday GMV,	Yday Customers,	Yday Revenue,	Yday Live Products,	Yday Live Stores--
+
+
+
+SELECT
+S.STORE_ID,
+COUNT(O.ORDER_ID) AS YDAY_ORDERS,
+SUM(O.SELLING_PRICE) AS YDAY_GVM,
+SUM(O.SELLING_PRICE)/1.18 AS YDAY_REVENUE,
+COUNT(DISTINCT O.CUSTOMER_ID) AS YDAY_CUTOMER,
+COUNT(DISTINCT O.PRODUCT_ID) AS YDAY_LIVE_PRODUCT,
+COUNT(DISTINCT O.STORE_ID) AS YDAY_LIVE_STORE,
+FROM stable-equator-471308-u6.Super_Mart_Project.order_details AS O  
+JOIN stable-equator-471308-u6.Super_Mart_Project.product_hierarchy AS P  
+ON O.PRODUCT_ID = P.PRODUCT_ID 
+JOIN stable-equator-471308-u6.Super_Mart_Project.store_cities AS S   
+ON O.STORE_ID = S.STORE_ID 
+WHERE ORDER_DATE = '2025-10-31'
+GROUP BY 1;
+
+
+
+-- Table 7: This table presents the status of State Level Behaviour --
+
+-- State,	Yday Orders,	Yday GMV,	Yday Revenue,	Yday Customers,	Yday Live Products,	Yday Live Stores --
+
+
+
+SELECT
+S.STATE,
+COUNT(O.ORDER_ID) AS YDAY_ORDERS,
+SUM(O.SELLING_PRICE) AS YDAY_GVM,
+SUM(O.SELLING_PRICE)/1.18 AS YDAY_REVENUE,
+COUNT(DISTINCT O.CUSTOMER_ID) AS YDAY_CUSTOMER,
+COUNT(DISTINCT O.PRODUCT_ID) AS YDAY_LIVE_PRODUCT,
+COUNT(DISTINCT O.STORE_ID) AS YDAY_LIVE_STORE,
+FROM stable-equator-471308-u6.Super_Mart_Project.order_details AS O  
+--JOIN stable-equator-471308-u6.Super_Mart_Project.product_hierarchy AS P  --
+--ON O.PRODUCT_ID = P.PRODUCT_ID --
+JOIN stable-equator-471308-u6.Super_Mart_Project.store_cities AS S   
+ON O.STORE_ID = S.STORE_ID 
+WHERE O.ORDER_DATE = '2025-10-31'
+GROUP BY 1;
+
+
+
+
+
+
+
+-- Table 8: This table presents the status of City and State Level Behaviour --
+
+-- City,	State,	Yday Orders,	Yday GMV,	Yday Customers,	Yday Revenue,	Yday Live Products,	Yday Live Stores --
+
+
+
+SELECT
+S.STATE,
+S.CITY,
+COUNT(O.ORDER_ID) AS YDAY_ORDERS,
+SUM(O.SELLING_PRICE) AS YDAY_GVM,
+SUM(O.SELLING_PRICE)/1.18 AS YDAY_REVENUE,
+COUNT(DISTINCT O.CUSTOMER_ID) AS YDAY_CUSTOMER,
+COUNT(DISTINCT O.PRODUCT_ID) AS YDAY_LIVE_PRODUCT,
+COUNT(DISTINCT O.STORE_ID) AS YDAY_LIVE_STORE,
+FROM stable-equator-471308-u6.Super_Mart_Project.order_details AS O  
+JOIN stable-equator-471308-u6.Super_Mart_Project.store_cities AS S   
+ON O.STORE_ID = S.STORE_ID 
+WHERE O.ORDER_DATE = '2025-10-31'
+GROUP BY 1,2;
+
+
+-- Table 1: This table presents the status of Category Level MTD Orders behaviour --
+
+-- Category,	MTD Orders,	MTD GMV,	MTD Revenue,	MTD Live Products,	MTD Live Stores --
+
+SELECT
+
+P.CATEGORY,
+COUNT(O.ORDER_ID) AS YDAY_ORDERS,
+SUM(O.SELLING_PRICE) AS YDAY_GVM,
+SUM(O.SELLING_PRICE)/1.18 AS YDAY_REVENUE,
+COUNT(DISTINCT O.CUSTOMER_ID) AS YDAY_CUSTOMER,
+COUNT(DISTINCT O.PRODUCT_ID) AS YDAY_LIVE_PRODUCT,
+COUNT(DISTINCT O.STORE_ID) AS YDAY_LIVE_STORE,
+FROM stable-equator-471308-u6.Super_Mart_Project.order_details AS O  
+JOIN stable-equator-471308-u6.Super_Mart_Project.product_hierarchy AS P  
+ON O.PRODUCT_ID = P.PRODUCT_ID 
+WHERE O.ORDER_DATE BETWEEN '2025-11-01' AND '2025-11-09'
+GROUP BY 1;
+
+
+-- Table 2: This table presents the status of Sub Category Level MTD Orders behaviour --
+
+-- Sub Category,	Category,	MTD Orders,	MTD GMV,	MTD Revenue,	MTD Live Products, MTD Live Stores --
+
+SELECT
+p.sub_category,
+count(o.order_id) as MTD_Orders,
+sum(o.selling_price) as MTD_GMV,
+sum(o.selling_price)/1.18 as MTD_Revenue,
+count(distinct o.product_id) as MTD_Live_Products,
+count(distinct o.store_id) as MTD_Live_Stores,
+from stable-equator-471308-u6.Super_Mart_Project.order_details as O
+join stable-equator-471308-u6.Super_Mart_Project.product_hierarchy as P
+ON O.PRODUCT_ID = P.PRODUCT_ID
+WHERE O.ORDER_DATE BETWEEN '2025-11-01' AND '2025-11-09'
+group by 1;
+
+
+
+------Table 9 Month on Month Data---
+select
+--od.order_id,
+substr(cast(od.order_date as string),1,7) as month,
+COUNT(distinct od.ORDER_ID) AS ORDERS,
+SUM(od.SELLING_PRICE) AS YDAY_GVM,
+SUM(od.SELLING_PRICE)/1.18 AS YDAY_REVENUE,
+COUNT(DISTINCT od.CUSTOMER_ID) AS CUSTOMER,
+ROUND(COUNT(DISTINCT od.ORDER_ID)/COUNT(DISTINCT od.CUSTOMER_ID),2) AS AVERAGE_NEW_CUSTOMER,
+ROUND(COUNT(DISTINCT od.SELLING_PRICE)/COUNT(DISTINCT od.CUSTOMER_ID),2) AS AVERAGE_GMV_PER_CUSTOMER,
+--COUNT(DISTINCT od.PRODUCT_ID) AS YDAY_LIVE_PRODUCT,
+--COUNT(DISTINCT od.STORE_ID) AS YDAY_LIVE_STORE,
+FROM stable-equator-471308-u6.Super_Mart_Project.order_details AS od 
+WHERE od.ORDER_DATE >= '2024-01-01'
+GROUP BY 1;
+
+Table-9--Month,Orders,GMV,Revenue,Customers,Avg Order per Customers,Avg GMV per Customers,New Customers,Repeat Customer
+
+SELECT
+    SUBSTR(CAST(od.order_date AS STRING), 1, 7) AS month,
+    COUNT(DISTINCT od.order_id) AS orders,
+    SUM(od.selling_price) AS yday_gmv,
+    SUM(od.selling_price) / 1.18 AS yday_revenue,
+    COUNT(DISTINCT od.customer_id) AS customer,
+    COUNT(DISTINCT CASE WHEN nc.rn = 1 THEN od.customer_id END) AS new_customer,
+    ROUND(COUNT(DISTINCT od.order_id) / COUNT(DISTINCT od.customer_id), 2) AS average_order_per_customer,
+    ROUND(SUM(od.selling_price) / COUNT(DISTINCT od.customer_id), 2) AS average_gmv_per_customer,
+    COUNT(DISTINCT CASE WHEN nc.rn = 1 THEN nc.customer_id END) AS new_customer_id,
+    COUNT(DISTINCT CASE WHEN nc.rn > 1 THEN nc.customer_id END) AS repeat_new_customer_id
+FROM `stable-equator-471308-u6.Super_Mart_Project.order_details` AS od
+
+LEFT JOIN (
+    SELECT 
+        od.customer_id,
+        od.order_id,
+        od.order_date,
+        RANK() OVER (PARTITION BY od.customer_id ORDER BY od.order_date ASC) AS rn
+    FROM `stable-equator-471308-u6.Super_Mart_Project.order_details` AS od
+) AS nc
+ON od.order_id = nc.order_id
+
+-- Filter for yesterday
+--WHERE DATE(od.order_date) = DATE_SUB(CURRENT_DATE(), INTERVAL 1 DAY)
+WHERE DATE(od.order_date)>= '2024-01-01'
+
+
+
+MTD:-
+SELECT
+    p.category,
+    COUNT(o.order_id) AS mtd_orders,
+    SUM(o.selling_price) AS mtd_gmv,
+    SUM(o.selling_price) / 1.18 AS mtd_revenue,
+    COUNT(DISTINCT o.product_id) AS mtd_live_products,
+    COUNT(DISTINCT o.store_id) AS mtd_live_stores,
+    COUNT(DISTINCT CASE WHEN nc.rn = 1 THEN o.customer_id END) AS mtd_new_customers
+FROM stable-equator-471308-u6.Super_Mart_Project.order_details AS o
+JOIN stable-equator-471308-u6.Super_Mart_Project.product_hierarchy AS p
+    ON p.product_id = o.product_id
+LEFT JOIN (
+    SELECT
+        customer_id,
+        order_id,
+        RANK() OVER (PARTITION BY customer_id ORDER BY order_date) AS rn
+    FROM stable-equator-471308-u6.Super_Mart_Project.order_details
+) nc
+    ON nc.customer_id = o.customer_id
+    AND nc.order_id = o.order_id
+WHERE DATE(o.order_date) BETWEEN
+        DATE_TRUNC(CURRENT_DATE(), MONTH)
+    AND DATE_SUB(CURRENT_DATE(), INTERVAL 1 DAY)
+GROUP BY p.category
+ORDER BY p.category;
+GROUP BY 1;
+--ORDER BY month;
+
+--Table 2: This table presents the status of Sub Category Level MTD Orders behaviour:
+--Sub Category,	Category,	MTD Orders,	MTD GMV,	MTD Revenue,	MTD Live Products,	MTD Live Stores,	MTD New Customers
+
+select
+p.category,
+p.sub_category,
+count(o.order_id) as mtd_order,
+sum(o.selling_price) as mtd_gmv,
+sum(o.selling_price)/1.18 as mtd_revenue,
+count(distinct(o.product_id)) as mtd_live_product,
+count(distinct(o.store_id)) as mtd_live_store,
+count(distinct case when nc.rn = 1 then o.customer_id end) as mtd_new_customer
+from stable-equator-471308-u6.Super_Mart_Project.order_details as o
+join stable-equator-471308-u6.Super_Mart_Project.product_hierarchy as p
+on p.product_id = o.product_id
+
+left join(
+
+select
+customer_id,
+order_id,
+rank() over(partition by customer_id order by order_date) as rn
+from stable-equator-471308-u6.Super_Mart_Project.order_details
+ ) nc
+on nc.customer_id = o.customer_id
+and nc.order_id = o.order_id
+where date(o.order_date) between
+date_trunc(current_date(),month)
+and date_sub(current_date(), INTERVAL 1 day)
+
+group by
+p.category,
+p.sub_category
+
+order by
+p.category,
+p.sub_category;
+
+
+-- Table 4: This table presents the status of MTD Top 20 Orders behaviour:							
+--Product Id,	Brand,	MTD Orders,	MTD GMV,	MTD Revenue,	MTD Live Products,	MTD Live Stores, MTD New Customers
+
+select
+p.brand,
+count(o.order_id) as mtd_order,
+sum(o.selling_price) as mtd_gmv,
+sum(o.selling_price)/1.18 as mtd_revenue,
+count(distinct(o.product_id)) as mtd_live_product,
+count(distinct(o.store_id)) as mtd_live_store,
+count(distinct case when nc.rn = 1 then o.customer_id end) as mtd_new_customer
+from stable-equator-471308-u6.Super_Mart_Project.order_details as o
+join stable-equator-471308-u6.Super_Mart_Project.product_hierarchy as p
+on p.product_id = o.product_id
+
+left join(
+
+select
+customer_id,
+order_id,
+rank() over(partition by customer_id order by order_date asc) as rn
+from stable-equator-471308-u6.Super_Mart_Project.order_details
+) nc
+on nc.customer_id = o.customer_id
+and nc.order_id = o.order_id
+where date(o.order_date) between
+date_trunc(current_date(),month)
+and date_sub(current_date(), INTERVAL 1 day)
+
+group by
+p.brand
+
+order by
+mtd_order desc
+limit 20;
+
+--Table 5: This table presents the status of StoreType Level Behaviour							
+--StoreType,	MTD Orders,	MTD GMV,	MTD Revenue,	MTD Live Products,	MTD Live Stores,	MTD New Customers,	MTD New Customers
+
+SELECT
+  s.storetype_id,
+  COUNT(o.order_id) AS mtd_orders,
+  SUM(o.selling_price) AS mtd_gmv,
+  SUM(o.selling_price) / 1.18 AS mtd_revenue,
+  COUNT(DISTINCT o.product_id) AS mtd_live_product,
+  COUNT(DISTINCT o.store_id) AS mtd_live_stores,
+  COUNT(DISTINCT CASE WHEN nc.rn = 1 THEN o.customer_id END) AS mtd_new_customers
+FROM `stable-equator-471308-u6.Super_Mart_Project.order_details` AS o
+JOIN `stable-equator-471308-u6.Super_Mart_Project.product_hierarchy` AS p
+  ON p.product_id = o.product_id join stable-equator-471308-u6.Super_Mart_Project.store_cities as s on s.store_id = o.store_id
+LEFT JOIN (
+    SELECT
+      customer_id,
+      order_id,
+      RANK() OVER (PARTITION BY customer_id ORDER BY order_date ASC) AS rn
+    FROM `stable-equator-471308-u6.Super_Mart_Project.order_details`
+) nc
+ON nc.customer_id = o.customer_id
+AND nc.order_id = o.order_id
+WHERE DATE(o.order_date) BETWEEN
+  DATE_TRUNC(CURRENT_DATE(), MONTH) 
+  AND DATE_SUB(CURRENT_DATE(), INTERVAL 1 DAY)
+GROUP BY
+s.storetype_id
+
+ORDER BY 
+s.storetype_id
+
+
+-- Table 6: This table presents the status of Store Id Level Behaviour							
+--Store Id,	StoreType,	MTD Orders,	MTD GMV,	MTD Revenue,	MTD Live Products,	MTD Live Stores,	MTD New Customers
+
+
+SELECT
+  o.store_id AS store_id,
+  st.storetype_id AS storetype_id,
+  COUNT(o.order_id) AS mtd_orders,
+  SUM(o.selling_price) AS mtd_gmv,
+  SUM(o.selling_price) / 1.18 AS mtd_revenue,
+  COUNT(DISTINCT o.product_id) AS mtd_live_products,
+  COUNT(DISTINCT o.store_id) AS mtd_live_stores,
+  COUNT(DISTINCT CASE WHEN nc.rn = 1 THEN o.customer_id END) AS mtd_new_customers
+FROM `stable-equator-471308-u6.Super_Mart_Project.order_details` AS o
+JOIN `stable-equator-471308-u6.Super_Mart_Project.product_hierarchy` AS p
+    ON p.product_id = o.product_id
+JOIN `stable-equator-471308-u6.Super_Mart_Project.store_cities` AS st
+    ON st.store_id = o.store_id
+
+LEFT JOIN (
+
+    SELECT
+      customer_id,
+      order_id,
+      RANK() OVER (PARTITION BY customer_id ORDER BY order_date ASC) AS rn
+    FROM `stable-equator-471308-u6.Super_Mart_Project.order_details`
+) AS nc
+
+ON nc.customer_id = o.customer_id
+AND nc.order_id = o.order_id
+
+
+--Table 7: This table presents the status of State Level Behaviour--
+--State,	MTD Orders,	MTD GMV,	MTD Revenue,	MTD Live Products	,MTD Live Stores
+
+select
+s.state as state,
+count(o.order_id) as mtd_orders,
+sum(o.selling_price) as mtd_gmv,
+sum(o.selling_price)/1.18 as mtd_revenue,
+count(distinct o.product_id) as mtd_live_product,
+count(distinct o.store_id) as live_stores,
+COUNT(DISTINCT CASE WHEN nc.rn = 1 THEN o.customer_id END) AS mtd_new_customers
+from stable-equator-471308-u6.Super_Mart_Project.order_details as o
+join stable-equator-471308-u6.Super_Mart_Project.product_details as p
+on p.product_id = o.product_id
+join stable-equator-471308-u6.Super_Mart_Project.store_cities as s
+on s.store_id = o.store_id
+
+left join(
+select 
+customer_id,
+order_id,
+rank() over(partition by customer_id order by order_date asc) as rn
+from stable-equator-471308-u6.Super_Mart_Project.order_details
+) nc
+on nc.customer_id = o.customer_id
+
+and nc.order_id = o.order_id
+WHERE DATE(o.order_date) BETWEEN
+  DATE_TRUNC(CURRENT_DATE(), MONTH) 
+  AND DATE_SUB(CURRENT_DATE(), INTERVAL 1 DAY)
+GROUP BY s.state
+ORDER BY mtd_gmv DESC;
+
+--Table 8: This table presents the status of City and State Level Behaviour--
+--City	State,	MTD Orders,	MTD GMV,	MTD Revenue,	MTD Live Products,	MTD Live Stores--
+
+SELECT
+  s.state AS state,
+  s.city AS city,
+  COUNT(o.order_id) AS mtd_orders,
+  SUM(o.selling_price) AS mtd_gmv,
+  SUM(o.selling_price) / 1.18 AS mtd_revenue,
+  COUNT(DISTINCT o.product_id) AS mtd_live_product,
+  COUNT(DISTINCT o.store_id) AS live_stores
+FROM stable-equator-471308-u6.Super_Mart_Project.order_details o
+LEFT JOIN stable-equator-471308-u6.Super_Mart_Project.product_details p
+  ON p.product_id = o.product_id
+LEFT JOIN stable-equator-471308-u6.Super_Mart_Project.store_cities s
+  ON s.store_id = o.store_id
+WHERE DATE(o.order_date) BETWEEN
+  DATE '2025-01-01'
+  AND LEAST(CURRENT_DATE(), DATE '2025-12-31')
+
+GROUP BY
+  s.state,
+  s.city
+ORDER BY mtd_gmv DESC;
+
+
+LMTD:- --Table 1: This table presents the status of Category Level LMTD Orders behaviour--					
+--Category	LMTD Orders,	LMTD GMV,	LMTD Revenue,	LMTD Live Products,	LMTD Live Stores--
+
+SELECT
+  p.category,
+  COUNT(o.order_id) AS lmtd_orders,
+  SUM(o.selling_price) AS lmtd_gmv,
+  SUM(o.selling_price) / 1.18 AS lmtd_revenue,
+  COUNT(DISTINCT o.product_id) AS lmtd_live_product,
+  COUNT(DISTINCT o.store_id) AS lmtd_live_stores
+FROM stable-equator-471308-u6.Super_Mart_Project.order_details o
+LEFT JOIN stable-equator-471308-u6.Super_Mart_Project.product_details p
+  ON p.product_id = o.product_id
+LEFT JOIN stable-equator-471308-u6.Super_Mart_Project.store_cities s
+  ON s.store_id = o.store_id
+WHERE DATE(o.order_date) BETWEEN
+  DATE_TRUNC(DATE_SUB(CURRENT_DATE(), INTERVAL 1 MONTH), MONTH)
+  AND DATE_SUB(CURRENT_DATE(), INTERVAL 1 MONTH)
+
+GROUP BY
+  p.category
+ORDER BY 1;
+
+--Table 2: This table presents the status of Sub Category Level LMTD Orders behaviour:						
+--Sub Category	Category	LMTD Orders,	LMTD GMV,	LMTD Revenue,	LMTD Live Products,	LMTD Live Stores--
+
+SELECT
+  p.category,
+  p.sub_category,
+  COUNT(o.order_id) AS lmtd_orders,
+  SUM(o.selling_price) AS lmtd_gmv,
+  SUM(o.selling_price) / 1.18 AS lmtd_revenue,
+  COUNT(DISTINCT o.product_id) AS lmtd_live_product,
+  COUNT(DISTINCT o.store_id) AS lmtd_live_stores
+FROM stable-equator-471308-u6.Super_Mart_Project.order_details o
+LEFT JOIN stable-equator-471308-u6.Super_Mart_Project.product_details p
+  ON p.product_id = o.product_id
+LEFT JOIN stable-equator-471308-u6.Super_Mart_Project.store_cities s
+  ON s.store_id = o.store_id
+WHERE DATE(o.order_date) BETWEEN
+  DATE_TRUNC(DATE_SUB(CURRENT_DATE(), INTERVAL 1 MONTH), MONTH)
+  AND DATE_SUB(CURRENT_DATE(), INTERVAL 1 MONTH)
+
+GROUP BY
+  p.category,
+  p.sub_category
+
+ORDER BY 1;
+
+Table 3: This table presents the status of Sub Category Level LMTD Orders behaviour:							
+Brand	Category	LMTD Orders	LMTD GMV	LMTD Revenue	LMTD Live Products	LMTD Live Stores	LMTD New Customers
+
+SELECT
+    p.category,
+  p.sub_category,
+  COUNT(o.order_id) AS lmtd_orders,
+  SUM(o.selling_price) AS lmtd_gmv,
+  SUM(o.selling_price) / 1.18 AS lmtd_revenue,
+  COUNT(DISTINCT o.product_id) AS lmtd_live_products,
+  COUNT(DISTINCT o.store_id) AS lmtd_live_stores,
+  COUNT(DISTINCT CASE 
+        WHEN nc.rn = 1 THEN o.customer_id 
+      END) AS lmtd_new_customers
+FROM stable-equator-471308-u6.Super_Mart_Project.order_details o
+LEFT JOIN stable-equator-471308-u6.Super_Mart_Project.product_details p
+  ON p.product_id = o.product_id
+LEFT JOIN stable-equator-471308-u6.Super_Mart_Project.store_cities s
+  ON s.store_id = o.store_id
+LEFT JOIN (
+    SELECT
+      customer_id,
+      order_id,
+      RANK() OVER (
+        PARTITION BY customer_id 
+        ORDER BY order_date ASC
+      ) AS rn
+    FROM stable-equator-471308-u6.Super_Mart_Project.order_details
+) nc
+  ON nc.customer_id = o.customer_id
+ AND nc.order_id = o.order_id
+
+  WHERE DATE(order_date) BETWEEN
+      DATE '2025-12-01'
+  AND DATE '2025-12-31'
+
+GROUP BY
+  p.category,
+  p.sub_category
+ORDER BY
+  p.category,
+  p.sub_category;
+
+
+--Table 4: This table presents the status of LMTD Top 20 Orders behaviour:--						
+--Product Id,	Brand,	LMTD Orders,	LMTD GMV,	LMTD Revenue,	LMTD Live Products,	LMTD Live Stores,	LMTD New Customers--
+
+SELECT
+  p.brand,
+  p.product_id,
+  COUNT(o.order_id) AS lmtd_orders,
+  SUM(o.selling_price) AS lmtd_gmv,
+  SUM(o.selling_price) / 1.18 AS lmtd_revenue,
+  COUNT(DISTINCT o.product_id) AS lmtd_live_products,
+  COUNT(DISTINCT o.store_id) AS lmtd_live_stores,
+  COUNT(DISTINCT CASE 
+        WHEN nc.rn = 1 THEN o.customer_id 
+      END) AS lmtd_new_customers
+FROM stable-equator-471308-u6.Super_Mart_Project.order_details o
+LEFT JOIN stable-equator-471308-u6.Super_Mart_Project.product_details p
+  ON p.product_id = o.product_id
+LEFT JOIN stable-equator-471308-u6.Super_Mart_Project.store_cities s
+  ON s.store_id = o.store_id
+LEFT JOIN (
+    SELECT
+      customer_id,
+      order_id,
+      RANK() OVER (
+        PARTITION BY customer_id 
+        ORDER BY order_date ASC
+      ) AS rn
+    FROM stable-equator-471308-u6.Super_Mart_Project.order_details
+) nc
+  ON nc.customer_id = o.customer_id
+ AND nc.order_id = o.order_id
+
+  WHERE DATE(order_date) BETWEEN
+      DATE '2025-12-01'
+  AND DATE '2025-12-31'
+
+GROUP BY p.brand, p.product_id
+ORDER BY lmtd_orders DESC
+LIMIT 20;
+
+--Table 5: This table presents the status of StoreType Level Behaviour							
+--StoreType,	LMTD Orders,	LMTD GMV,	LMTD Revenue,	LMTD Live Products,	LMTD Live Stores,	LMTD New Customers --
+
+SELECT
+s.storetype_id,
+COUNT(o.order_id) AS lmtd_orders,
+  SUM(o.selling_price) AS lmtd_gmv,
+  SUM(o.selling_price) / 1.18 AS lmtd_revenue,
+  COUNT(DISTINCT o.product_id) AS lmtd_live_products,
+  COUNT(DISTINCT o.store_id) AS lmtd_live_stores,
+  COUNT(DISTINCT CASE 
+        WHEN nc.rn = 1 THEN o.customer_id 
+      END) AS lmtd_new_customers
+FROM stable-equator-471308-u6.Super_Mart_Project.order_details o
+LEFT JOIN stable-equator-471308-u6.Super_Mart_Project.product_details p
+  ON p.product_id = o.product_id
+LEFT JOIN stable-equator-471308-u6.Super_Mart_Project.store_cities s
+  ON s.store_id = o.store_id
+LEFT JOIN (
+    SELECT
+      customer_id,
+      order_id,
+      RANK() OVER (
+        PARTITION BY customer_id 
+        ORDER BY order_date ASC
+      ) AS rn
+    FROM stable-equator-471308-u6.Super_Mart_Project.order_details
+) nc
+  ON nc.customer_id = o.customer_id
+ AND nc.order_id = o.order_id
+
+  WHERE DATE(o.order_date) BETWEEN
+      DATE '2025-12-01'
+  AND DATE '2025-12-31'
+
+GROUP BY s.storetype_id
+
+ORDER BY s.storetype_id;
+
+
+
+
+
+
